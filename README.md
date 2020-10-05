@@ -1,12 +1,22 @@
 # BestPractice-WebAPI-Akka
 
-# Akka.NET DI
+## Akka.NET DI
 - https://github.com/akkadotnet/akka.net/pull/3862
 - WIP
 
-# IHostedService
+## IHostedService
 - https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/multi-container-microservice-net-applications/background-tasks-with-ihostedservice
 - https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/host/hosted-services?view=aspnetcore-3.1&tabs=visual-studio
 
-# RabbitMQ
+## RabbitMQ
 - https://docs.microsoft.com/ko-kr/dotnet/architecture/microservices/multi-container-microservice-net-applications/rabbitmq-event-bus-development-test-environment
+
+## TestUserSample
+```json
+{
+  "blob": "/wE=",
+  "password": "1",
+  "useR_GROUP": "2",
+  "useR_NAME": "3"
+}
+```

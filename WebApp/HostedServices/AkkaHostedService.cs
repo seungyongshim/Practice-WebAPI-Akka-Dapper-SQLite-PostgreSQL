@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.DI.Core;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Petabridge.Cmd.Cluster;
@@ -6,6 +7,7 @@ using Petabridge.Cmd.Host;
 using Petabridge.Cmd.Remote;
 using System.Threading;
 using System.Threading.Tasks;
+using WebApp.Actors;
 
 namespace webapi.Services
 {
@@ -30,7 +32,9 @@ namespace webapi.Services
             var pbm = PetabridgeCmd.Get(Sys);
             pbm.RegisterCommandPalette(ClusterCommands.Instance);
             pbm.RegisterCommandPalette(RemoteCommands.Instance);
-            pbm.Start(); 
+            pbm.Start();
+
+            Sys.ActorOf(Sys.DI().Props<UserServiceActor>(), "UserServiceActor");
 
             return Task.CompletedTask;
         }

@@ -7,6 +7,7 @@ using Akka.Actor;
 using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
+using Database.Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,6 +18,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using webapi.Services;
+using WebApp.Actors;
+using WebApp.Core;
+using WebApp.Services;
 
 namespace webapi
 {
@@ -32,7 +36,20 @@ namespace webapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddHostedService<AkkaHostedService>();
-            
+            services.AddTransient<UserServiceActor>();
+
+            services.AddScoped<IUserRepository>(c =>
+            {
+                var r = new Database.SQLite.UserRepository("Data Source=Application.db;Cache=Shared")
+                {
+                    Logger = c.GetService<ILogger>()
+                };
+                r.Initialize();
+                return r;
+            });
+
+            services.AddScoped<IUserService, UserService>();
+
             services.AddSingleton(s =>
             {
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("app.conf")).BootstrapFromDocker();
