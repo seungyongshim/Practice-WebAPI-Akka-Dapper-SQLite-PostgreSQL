@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Data;
 
 namespace Database.Core
 {
-    internal interface IUnitOfWork<T> : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
+        IDbConnection DbConnection { get; }
+        IDbTransaction DbTransaction { get; }
+        void Commit();
+        void Rollback();
     }
 }

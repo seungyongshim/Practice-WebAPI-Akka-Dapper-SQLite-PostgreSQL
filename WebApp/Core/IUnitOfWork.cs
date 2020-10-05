@@ -1,5 +1,0 @@
-﻿{
-    internal interface IUnitOfWork<T>
-    {
-    }
-}

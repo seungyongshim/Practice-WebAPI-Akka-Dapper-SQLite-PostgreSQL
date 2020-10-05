@@ -3,82 +3,62 @@ using Database.Core;
 using Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace Database.SQLite
 {
     public class UserRepository : IUserRepository
     {
-        public UserRepository(string SqlConnection, ILogger<UserRepository> logger)
+        public UserRepository(IUnitOfWork unitOfWork, ILogger<UserRepository> logger)
         {
-            Connect = () => new SqliteConnection(SqlConnection);
+            UnitOfWork = unitOfWork;
             Logger = logger;
         }
 
-        public Func<IDbConnection> Connect { get; }
+        public IUnitOfWork UnitOfWork { get; }
         public ILogger<UserRepository> Logger { get; }
 
         public void Delete(long key)
         {
-            using (var c = Connect())
-            {
-                c.Open();
-                c.Execute($@"DELETE FROM USERS WHERE USER_ID = {key}");
-            }
+            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {key}");
         }
 
         public void Delete(User userInformation)
         {
-            using (var c = Connect())
-            {
-                c.Open();
-                c.Execute($@"DELETE FROM USERS WHERE USER_ID = {userInformation.USER_ID}");
-            }
+            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {userInformation.USER_ID}");
         }
 
         public IEnumerable<User> FindAll()
         {
-            using (var c = Connect())
-            {
-                c.Open();
-                return c.Query<User>("SELECT * FROM USERS");
-            }
+            return UnitOfWork.DbConnection.Query<User>("SELECT * FROM USERS");
         }
 
         public void Initialize()
         {
             Logger.LogTraceStart();
-            using (var c = Connect() as SqliteConnection)
-            {
-                c.Open();
+            var c = UnitOfWork.DbConnection as SqliteConnection;
+            var t = UnitOfWork.DbTransaction as SqliteTransaction;
 
-                var tableCommand = "CREATE TABLE IF NOT "
-                                 + "EXISTS USERS "
-                                 + "("
-                                 + "USER_ID INTEGER PRIMARY KEY, "
-                                 + "PASSWORD TEXT, "
-                                 + "USER_NAME TEXT, "
-                                 + "USER_GROUP TEXT, "
-                                 + "BLOB BLOB "
-                                 + ")";
+            var tableCommand = "CREATE TABLE IF NOT "
+                             + "EXISTS USERS "
+                             + "("
+                             + "USER_ID INTEGER PRIMARY KEY, "
+                             + "PASSWORD TEXT, "
+                             + "USER_NAME TEXT, "
+                             + "USER_GROUP TEXT, "
+                             + "BLOB BLOB "
+                             + ")";
 
-                SqliteCommand createTable = new SqliteCommand(tableCommand, c);
+            var createTable = new SqliteCommand(tableCommand, c, t);
 
-                createTable.ExecuteReader();
-            }
+            createTable.ExecuteReader();
             Logger.LogTraceEnd();
         }
 
         public void Insert(User user)
         {
-            using (var c = Connect())
-            {
-                c.Open();
-                c.Execute(@"INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP, BLOB)" +
-                                  "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP, :BLOB)", user);
-            }
+            UnitOfWork.DbConnection.Execute(@"INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP, BLOB)" +
+                                             "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP, :BLOB)", user);
         }
     }
 }

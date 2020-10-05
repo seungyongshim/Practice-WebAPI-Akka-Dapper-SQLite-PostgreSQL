@@ -1,5 +1,6 @@
 ﻿using Akka.Actor;
 using Database.Core;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using WebApp.Messages;
 
@@ -7,19 +8,22 @@ namespace WebApp.Actors
 {
     public class InsertUserActor : ReceiveActor
     {
-        public InsertUserActor(IUserRepository userRepository)
+        public InsertUserActor(IServiceProvider serviceProvider)
         {
-            UserRepository = userRepository;
-
+            ServiceProvider = serviceProvider;
             Receive<InsertUserMessage>(Handle);
         }
 
         private void Handle(InsertUserMessage msg)
         {
-            UserRepository.Insert(msg.User);
-            Sender.Tell(new OkMessage { });
+            using (var s = ServiceProvider.CreateScope())
+            {
+                var uow = s.ServiceProvider.GetService<IUnitOfWork>();
+                var userRepository = s.ServiceProvider.GetService<IUserRepository>();
+                userRepository.Insert(msg.User);
+            }
         }
 
-        public IUserRepository UserRepository { get; }
+        public IServiceProvider ServiceProvider { get; }
     }
 }

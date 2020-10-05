@@ -12,10 +12,9 @@ namespace WebApp.Actors
     public class GetUserActor : ReceiveActor
     {
         public ILoggingAdapter Logger { get; } = Context.GetLogger();
-        public GetUserActor(IServiceProvider serviceProvider, IUserRepository userRepository)
+        public GetUserActor(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
-            UserRepository = userRepository;
             Receive<GetUserMessage>(Handle);
         }
 
@@ -23,13 +22,11 @@ namespace WebApp.Actors
         {
             using (var s = ServiceProvider.CreateScope())
             {
-                s.ServiceProvider.GetService<IUnitOfWork<User>>();
+                var UserRepository = s.ServiceProvider.GetService<IUserRepository>();
                 Sender.Tell(UserRepository.FindAll().ToList());
             }
-                
         }
 
         public IServiceProvider ServiceProvider { get; }
-        public IUserRepository UserRepository { get; }
     }
 }
