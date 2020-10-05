@@ -16,7 +16,7 @@ namespace webapi.Services
     /// </summary>
     public class AkkaHostedService : IHostedService
     {
-        public AkkaHostedService(ActorSystem actorSystem,  ILogger<AkkaHostedService> logger)
+        public AkkaHostedService(ActorSystem actorSystem, ILogger<AkkaHostedService> logger)
         {
             Sys = actorSystem;
             Logger = logger;

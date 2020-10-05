@@ -13,6 +13,13 @@ namespace WebApp.Actors
         public UserServiceActor()
         {
             Receive<InsertUserMessage>(Handle);
+            Receive<GetUserMessage>(Handle);
+        }
+
+        private void Handle(GetUserMessage msg)
+        {
+            var getUserActor = Context.ActorOf(Context.DI().Props<GetUserActor>());
+            getUserActor.Forward(msg);
         }
 
         private void Handle(InsertUserMessage msg)

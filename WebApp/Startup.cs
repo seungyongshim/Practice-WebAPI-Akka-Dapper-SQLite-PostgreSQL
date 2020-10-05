@@ -7,7 +7,9 @@ using Akka.Actor;
 using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
+using Akka.Logger.Extensions.Logging;
 using Database.Core;
+using Database.SQLite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,15 +37,15 @@ namespace webapi
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddLogging();
             services.AddHostedService<AkkaHostedService>();
             services.AddTransient<UserServiceActor>();
+            services.AddTransient<InsertUserActor>();
+            services.AddTransient<GetUserActor>();
 
             services.AddScoped<IUserRepository>(c =>
             {
-                var r = new Database.SQLite.UserRepository("Data Source=Application.db;Cache=Shared")
-                {
-                    Logger = c.GetService<ILogger>()
-                };
+                var r = new UserRepository("Data Source=Application.db;Cache=Shared", c.GetService<ILogger<UserRepository>>());
                 r.Initialize();
                 return r;
             });
@@ -67,6 +69,9 @@ namespace webapi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            LoggingLogger.LoggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
+            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,13 +11,14 @@ namespace Database.SQLite
 {
     public class UserRepository : IUserRepository
     {
-        public UserRepository(string SqlConnection)
+        public UserRepository(string SqlConnection, ILogger<UserRepository> logger)
         {
             Connect = () => new SqliteConnection(SqlConnection);
+            Logger = logger;
         }
 
         public Func<IDbConnection> Connect { get; }
-        public ILogger Logger { get; set; }
+        public ILogger<UserRepository> Logger { get; }
 
         public void Delete(long key)
         {
