@@ -7,7 +7,6 @@ using Akka.Actor;
 using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
-using Akka.Logger.Extensions.Logging;
 using Database.Core;
 using Database.SQLite;
 using Microsoft.AspNetCore.Builder;
@@ -69,9 +68,6 @@ namespace webapi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            LoggingLogger.LoggerFactory = app.ApplicationServices.GetRequiredService<ILoggerFactory>();
-            
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -1,8 +1,6 @@
 ﻿using Akka.Actor;
 using Akka.Event;
-using Akka.Logger.Extensions.Logging;
 using Database.Core;
-using System;
 using System.Linq;
 using WebApp.Messages;
 
