@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using webapi.Services;
 
 namespace webapi.Controllers
 {
@@ -16,12 +18,14 @@ namespace webapi.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ActorSystem actorSystem, ILogger<WeatherForecastController> logger)
         {
-            _logger = logger;
+            Sys = actorSystem;
+            Logger = logger;
         }
+
+        public ActorSystem Sys { get; }
+        public ILogger<WeatherForecastController> Logger { get; }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
