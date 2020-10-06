@@ -22,7 +22,7 @@ namespace Actors
         private void Handle(InsertUserMessage msg)
         {
             using var scope = ServiceProvider.CreateScope();
-            var uow = scope.ServiceProvider.GetService<IUnitOfWork>().BeginTransaction();
+            using var uow = scope.ServiceProvider.GetService<IUnitOfWork>().BeginTransaction();
             var userRepository = scope.ServiceProvider.GetService<IUserRepository>();
             try
             {
@@ -31,6 +31,7 @@ namespace Actors
             }
             catch (Exception ex)
             {
+                uow.Rollback();
                 Logger.Warning(ex, "");
             }
         }

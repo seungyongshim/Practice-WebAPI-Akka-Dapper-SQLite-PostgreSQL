@@ -1,22 +1,20 @@
-﻿using Dapper;
-using Database.Core;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
-using System.Text;
 
-namespace Database.SQLite
+namespace Database.Core
 {
     public class UnitOfWork : IUnitOfWork
     {
+        private bool disposed = false;
+
         public UnitOfWork(IDbConnection dbConnection)
         {
             DbConnection = dbConnection;
             DbConnection.Open();
         }
 
-        public IDbTransaction DbTransaction { get; private set; }
         public IDbConnection DbConnection { get; }
+        public IDbTransaction DbTransaction { get; private set; }
 
         public IUnitOfWork BeginTransaction()
         {
@@ -29,12 +27,17 @@ namespace Database.SQLite
             DbTransaction?.Commit();
         }
 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public void Rollback()
         {
             DbTransaction?.Rollback();
         }
 
-        private bool disposed = false;
         protected virtual void Dispose(bool disposing)
         {
             if (!disposed)
@@ -46,12 +49,6 @@ namespace Database.SQLite
                 }
             }
             disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }

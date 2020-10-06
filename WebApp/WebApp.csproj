@@ -31,6 +31,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Actors\Actors.csproj" />
     <ProjectReference Include="..\Database.Core\Database.Core.csproj" />
+    <ProjectReference Include="..\Database.Factories\Database.Factories.csproj" />
     <ProjectReference Include="..\Database.SQLite\Database.SQLite.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Messages\Messages.csproj" />
