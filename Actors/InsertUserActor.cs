@@ -3,9 +3,9 @@ using Akka.Event;
 using Database.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using WebApp.Messages;
+using Messages;
 
-namespace WebApp.Actors
+namespace Actors
 {
     public class InsertUserActor : ReceiveActor
     {

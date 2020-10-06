@@ -7,7 +7,7 @@ using Petabridge.Cmd.Host;
 using Petabridge.Cmd.Remote;
 using System.Threading;
 using System.Threading.Tasks;
-using WebApp.Actors;
+using Actors;
 
 namespace webapi.Services
 {

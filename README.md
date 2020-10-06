@@ -20,3 +20,6 @@
   "useR_NAME": "3"
 }
 ```
+
+## Xunit.DependencyInjection
+- https://github.com/pengweiqhca/Xunit.DependencyInjection

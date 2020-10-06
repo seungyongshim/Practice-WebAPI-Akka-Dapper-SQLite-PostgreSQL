@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebApp.Core;
-using WebApp.Messages;
+using Messages;
 using FluentAssertions.Extensions;
 
 namespace WebApp.Services

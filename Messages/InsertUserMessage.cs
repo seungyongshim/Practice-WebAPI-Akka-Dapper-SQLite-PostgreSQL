@@ -1,8 +1,8 @@
 ﻿using Domain;
 
-namespace WebApp.Messages
+namespace Messages
 {
-    internal class InsertUserMessage
+    public class InsertUserMessage
     {
         public InsertUserMessage(User user)
         {

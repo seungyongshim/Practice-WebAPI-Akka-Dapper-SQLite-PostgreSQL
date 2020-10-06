@@ -1,12 +1,8 @@
 ﻿using Akka.Actor;
 using Akka.DI.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebApp.Messages;
+using Messages;
 
-namespace WebApp.Actors
+namespace Actors
 {
     public class UserServiceActor : ReceiveActor
     {

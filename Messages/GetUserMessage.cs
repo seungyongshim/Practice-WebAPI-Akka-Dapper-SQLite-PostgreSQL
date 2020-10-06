@@ -1,6 +1,6 @@
-﻿namespace WebApp.Messages
+﻿namespace Messages
 {
-    internal class GetUserMessage
+    public class GetUserMessage
     {
         public GetUserMessage()
         {
