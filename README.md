@@ -26,3 +26,6 @@
 
 ## Strategy-pattern with Microsoft.Extensions.DependencyInjection
 - https://adamstorr.azurewebsites.net/blog/aspnetcore-and-the-strategy-pattern
+
+## Options pattern in .NET
+- https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.1
