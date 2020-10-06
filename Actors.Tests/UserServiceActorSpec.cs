@@ -21,7 +21,7 @@ namespace Actors.Tests
         public void GetUserMessage()
         {
             var services = new ServiceCollection();
-            services.AddSingleton(c => CreateTestProbe());
+            services.AddSingleton(sp => CreateTestProbe());
             services.AddTransient<UserServiceActor>();
             services.AddTransient<GetUserActor, MockGetUserActor>();
             var serviceProvider = services.BuildServiceProvider();
@@ -42,7 +42,7 @@ namespace Actors.Tests
         public void InsertUserMessage()
         {
             var services = new ServiceCollection();
-            services.AddSingleton(c => CreateTestProbe());
+            services.AddSingleton(sp => CreateTestProbe());
             services.AddTransient<UserServiceActor>();
             services.AddTransient<InsertUserActor, MockInsertUserActor>();
             var serviceProvider = services.BuildServiceProvider();

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.SQLite.Tests", "Da
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actors.Tests", "Actors.Tests\Actors.Tests.csproj", "{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.PostgreSQL", "Database.PostgreSQL\Database.PostgreSQL.csproj", "{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
