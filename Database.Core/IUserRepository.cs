@@ -9,6 +9,6 @@ namespace Database.Core
         void Delete(User user);
         IEnumerable<User> FindAll();
         void Initialize();
-        void Insert(User user);
+        User Insert(User user);
     }
 }

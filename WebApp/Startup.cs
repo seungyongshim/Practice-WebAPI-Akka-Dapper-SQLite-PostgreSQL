@@ -54,11 +54,6 @@ namespace webapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "webapi", Version = "v1" });
             });
-
-            using (var scope = services.BuildServiceProvider().CreateScope())
-            {
-                scope.ServiceProvider.GetService<IUserRepository>().Initialize();
-            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -79,6 +74,10 @@ namespace webapi
                 endpoints.MapControllers();
             });
 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                scope.ServiceProvider.GetService<IUserRepository>().Initialize();
+            }
             
         }
     }

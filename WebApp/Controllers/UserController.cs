@@ -28,8 +28,7 @@ namespace webapi.Controllers
         [HttpPut]
         public async Task<IActionResult> PutAsync(User user)
         {
-            await UserService.PutAsync(user);
-            return Ok();
+            return Ok(await UserService.PutAsync(user));
         }
 
         [HttpGet]

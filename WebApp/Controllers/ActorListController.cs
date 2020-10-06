@@ -25,8 +25,6 @@ namespace WebApp.Controllers
             var root = await ActorSystem.ActorSelection("/").ResolveOne(1.Seconds());
 
             return PrintChildrenPath(root as ActorRefWithCell);
-
-           
         }
 
         static IEnumerable<string> PrintChildrenPath(ActorRefWithCell actor)
@@ -34,6 +32,7 @@ namespace WebApp.Controllers
             foreach (var item in actor.Children)
             {
                 yield return item.ToString();
+                
                 foreach (var s in PrintChildrenPath(item as ActorRefWithCell))
                 {
                     yield return s;

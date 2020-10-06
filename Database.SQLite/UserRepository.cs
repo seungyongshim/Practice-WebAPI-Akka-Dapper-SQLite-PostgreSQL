@@ -4,6 +4,7 @@ using Domain;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Database.SQLite
 {
@@ -37,7 +38,6 @@ namespace Database.SQLite
         {
             Logger.LogTraceStart();
             var c = UnitOfWork.DbConnection as SqliteConnection;
-            var t = UnitOfWork.DbTransaction as SqliteTransaction;
 
             var tableCommand = "CREATE TABLE IF NOT "
                              + "EXISTS USERS "
@@ -49,16 +49,19 @@ namespace Database.SQLite
                              + "BLOB BLOB "
                              + ")";
 
-            var createTable = new SqliteCommand(tableCommand, c, t);
+            var createTable = new SqliteCommand(tableCommand, c);
 
             createTable.ExecuteReader();
             Logger.LogTraceEnd();
         }
 
-        public void Insert(User user)
+        public User Insert(User user)
         {
-            UnitOfWork.DbConnection.Execute(@"INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP, BLOB)" +
-                                             "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP, :BLOB)", user);
+            return UnitOfWork.DbConnection.QuerySingle<User>(@"INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP, BLOB)" +
+                                                              "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP, :BLOB);" +
+                                                              "SELECT * FROM USERS WHERE USER_ID = last_insert_rowid();"
+                                                              , user
+                                                              , UnitOfWork.DbTransaction);
         }
     }
 }

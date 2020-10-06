@@ -20,11 +20,10 @@ namespace WebApp.Actors
 
         private void Handle(GetUserMessage msg)
         {
-            using (var s = ServiceProvider.CreateScope())
-            {
-                var UserRepository = s.ServiceProvider.GetService<IUserRepository>();
-                Sender.Tell(UserRepository.FindAll().ToList());
-            }
+            using var s = ServiceProvider.CreateScope();
+            var UserRepository = s.ServiceProvider.GetService<IUserRepository>();
+            
+            Sender.Tell(UserRepository.FindAll().ToList());
         }
 
         public IServiceProvider ServiceProvider { get; }

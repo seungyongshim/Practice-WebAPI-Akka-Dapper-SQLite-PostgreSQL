@@ -7,6 +7,8 @@ namespace Database.Core
     {
         IDbConnection DbConnection { get; }
         IDbTransaction DbTransaction { get; }
+
+        IUnitOfWork BeginTransaction();
         void Commit();
         void Rollback();
     }

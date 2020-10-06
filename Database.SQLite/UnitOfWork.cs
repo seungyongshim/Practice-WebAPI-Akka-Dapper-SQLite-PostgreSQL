@@ -13,20 +13,25 @@ namespace Database.SQLite
         {
             DbConnection = dbConnection;
             DbConnection.Open();
-            DbTransaction = dbConnection.BeginTransaction();
         }
 
-        public IDbTransaction DbTransaction { get; }
+        public IDbTransaction DbTransaction { get; private set; }
         public IDbConnection DbConnection { get; }
+
+        public IUnitOfWork BeginTransaction()
+        {
+            DbTransaction = DbConnection.BeginTransaction();
+            return this;
+        }
 
         public void Commit()
         {
-            DbTransaction.Commit();
+            DbTransaction?.Commit();
         }
 
         public void Rollback()
         {
-            DbTransaction.Rollback();
+            DbTransaction?.Rollback();
         }
 
         private bool disposed = false;
@@ -36,7 +41,7 @@ namespace Database.SQLite
             {
                 if (disposing)
                 {
-                    DbTransaction.Dispose();
+                    DbTransaction?.Dispose();
                     DbConnection.Dispose();
                 }
             }

@@ -1,4 +1,5 @@
 ﻿using Akka.Actor;
+using Akka.Event;
 using Database.Core;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,16 +15,23 @@ namespace WebApp.Actors
             Receive<InsertUserMessage>(Handle);
         }
 
+        public ILoggingAdapter Logger { get; } = Context.GetLogger();
+        public IServiceProvider ServiceProvider { get; }
+
         private void Handle(InsertUserMessage msg)
         {
-            using (var s = ServiceProvider.CreateScope())
+            using var scope = ServiceProvider.CreateScope();
+            var uow = scope.ServiceProvider.GetService<IUnitOfWork>().BeginTransaction();
+            var userRepository = scope.ServiceProvider.GetService<IUserRepository>();
+            try
             {
-                var uow = s.ServiceProvider.GetService<IUnitOfWork>();
-                var userRepository = s.ServiceProvider.GetService<IUserRepository>();
-                userRepository.Insert(msg.User);
+                Sender.Tell(userRepository.Insert(msg.User));
+                uow.Commit();
+            }
+            catch (Exception ex)
+            {
+                Logger.Warning(ex, "");
             }
         }
-
-        public IServiceProvider ServiceProvider { get; }
     }
 }
