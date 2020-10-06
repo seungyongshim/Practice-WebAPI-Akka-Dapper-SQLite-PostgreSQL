@@ -21,7 +21,7 @@ namespace Database.Factories
         {
             DatabaseType.None => throw new System.NotImplementedException(),
             DatabaseType.Oracle => throw new System.NotImplementedException(),
-            DatabaseType.Postgre => new PostgreSQL.UserRepository(sp.GetService<IUnitOfWork>(),
+            DatabaseType.PostgreSQL => new PostgreSQL.UserRepository(sp.GetService<IUnitOfWork>(),
                                                                   sp.GetService<ILogger<PostgreSQL.UserRepository>>()),
             DatabaseType.SQLite => new SQLite.UserRepository(sp.GetService<IUnitOfWork>(),
                                                              sp.GetService<ILogger<SQLite.UserRepository>>()),

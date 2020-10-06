@@ -22,7 +22,7 @@ namespace Database.Factories
         {
             DatabaseType.None => throw new System.NotImplementedException(),
             DatabaseType.Oracle => throw new System.NotImplementedException(),
-            DatabaseType.Postgre => new NpgsqlConnection(Options.ConnectionString),
+            DatabaseType.PostgreSQL => new NpgsqlConnection(Options.ConnectionString),
             DatabaseType.SQLite => new SqliteConnection(Options.ConnectionString),
             _ => throw new NotImplementedException(),
         };

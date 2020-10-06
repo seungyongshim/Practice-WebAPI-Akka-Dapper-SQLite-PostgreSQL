@@ -25,6 +25,9 @@ namespace Actors
         {
             using var s = ServiceProvider.CreateScope();
             var UserRepository = s.ServiceProvider.GetService<IUserRepository>();
+            var UserGroupRepository = s.ServiceProvider.GetService<IUserGroupRepository>();
+
+            UserRepository.FindAll().Select(x => x.UserGroup = UserGroupRepository.Find(x.USER_GROUP_FK));
 
             Sender.Tell(UserRepository.FindAll().ToList());
         }

@@ -4,7 +4,7 @@
     {
         None,
         Oracle,
-        Postgre,
+        PostgreSQL,
         SQLite
     }
 }

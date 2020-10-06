@@ -48,6 +48,7 @@ namespace webapi
             using (var scope = app.ApplicationServices.CreateScope())
             {
                 scope.ServiceProvider.GetRequiredService<IUserRepository>().Initialize();
+                scope.ServiceProvider.GetRequiredService<IUserGroupRepository>().Initialize();
             }
         }
 
@@ -61,8 +62,10 @@ namespace webapi
             services.AddTransient<GetUserActor>();
             services.AddSingleton<DbConnectionFactory>();
             services.AddSingleton<UserRepositoryFactory>();
+            services.AddSingleton<UserGroupRepositoryFactory>();
             services.AddScoped(x => x.GetService<DbConnectionFactory>().Make(x));
             services.AddScoped(x => x.GetService<UserRepositoryFactory>().Make(x));
+            services.AddScoped(x => x.GetService<UserGroupRepositoryFactory>().Make(x));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserService, UserService>();
 

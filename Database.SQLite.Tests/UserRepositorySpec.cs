@@ -41,7 +41,7 @@ namespace Database.SQLite.Tests
                 userRepo.Insert(new User
                 {
                     BLOB = new byte[] { 0x00, 0x01, 0x02 },
-                    USER_GROUP = "Heros",
+                    USER_GROUP_FK = 1,
                     USER_NAME = "Clark",
                     PASSWORD = "Superman",
                 });
@@ -56,8 +56,8 @@ namespace Database.SQLite.Tests
                 users.First().Should().BeEquivalentTo(new User
                 {
                     BLOB = new byte[] { 0x00, 0x01, 0x02 },
-                    USER_ID = 1,
-                    USER_GROUP = "Heros",
+                    ID = 1,
+                    USER_GROUP_FK = 1,
                     USER_NAME = "Clark",
                     PASSWORD = "Superman",
                 }) ;
@@ -89,7 +89,7 @@ namespace Database.SQLite.Tests
                      userRepo.Insert(new User
                      {
                          BLOB = new byte[] { 0x00, 0x01, 0x02 },
-                         USER_GROUP = "Heros",
+                         USER_GROUP_FK = 1,
                          USER_NAME = "Clark" + x.ToString(),
                          PASSWORD = "Superman",
                      });
@@ -130,7 +130,7 @@ namespace Database.SQLite.Tests
                 userRepo.Insert(new User
                 {
                     BLOB = new byte[] { 0x00, 0x01, 0x02 },
-                    USER_GROUP = "Heros",
+                    USER_GROUP_FK = 1,
                     USER_NAME = "Clark" + x.ToString(),
                     PASSWORD = "Superman",
                 });

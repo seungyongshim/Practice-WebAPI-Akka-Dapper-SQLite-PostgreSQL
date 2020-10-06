@@ -21,12 +21,12 @@ namespace Database.SQLite
 
         public void Delete(long key)
         {
-            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {key}");
+            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE ID = {key}");
         }
 
         public void Delete(User userInformation)
         {
-            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {userInformation.USER_ID}");
+            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE ID = {userInformation.ID}");
         }
 
         public IEnumerable<User> FindAll()
@@ -42,10 +42,10 @@ namespace Database.SQLite
             var tableCommand = "CREATE TABLE IF NOT "
                              + "EXISTS USERS "
                              + "("
-                             + "USER_ID INTEGER PRIMARY KEY, "
+                             + "ID INTEGER PRIMARY KEY, "
                              + "PASSWORD TEXT, "
                              + "USER_NAME TEXT, "
-                             + "USER_GROUP TEXT, "
+                             + "USER_GROUP_FK INTEGER, "
                              + "BLOB BLOB "
                              + ")";
 
@@ -57,11 +57,11 @@ namespace Database.SQLite
 
         public User Insert(User user)
         {
-            return UnitOfWork.DbConnection.QuerySingle<User>(@"INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP, BLOB)" +
-                                                              "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP, :BLOB);" +
-                                                              "SELECT * FROM USERS WHERE USER_ID = last_insert_rowid();"
-                                                              , user
-                                                              , UnitOfWork.DbTransaction);
+            return UnitOfWork.DbConnection.QuerySingle<User>("INSERT INTO USERS (PASSWORD, USER_NAME, USER_GROUP_FK, BLOB)" +
+                                                             "VALUES (:PASSWORD, :USER_NAME, :USER_GROUP_FK, :BLOB);" +
+                                                             "SELECT * FROM USERS WHERE ID = last_insert_rowid();",
+                                                             user,
+                                                             UnitOfWork.DbTransaction);
         }
     }
 }

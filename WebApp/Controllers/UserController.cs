@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Akka.Actor;
-using Domain;
+﻿using Domain;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using webapi.Services;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebApp.Core;
 
 namespace webapi.Controllers
@@ -21,7 +17,6 @@ namespace webapi.Controllers
             Logger = logger;
         }
 
-        
         public IUserService UserService { get; }
         public ILogger<UserController> Logger { get; }
 

@@ -25,7 +25,7 @@ namespace Database.PostgreSQL
 
         public void Delete(User userInformation)
         {
-            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {userInformation.USER_ID}",
+            UnitOfWork.DbConnection.Execute($@"DELETE FROM USERS WHERE USER_ID = {userInformation.ID}",
                                             transaction: UnitOfWork.DbTransaction);
         }
 
