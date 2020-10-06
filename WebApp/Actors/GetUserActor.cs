@@ -1,6 +1,9 @@
 ﻿using Akka.Actor;
 using Akka.Event;
 using Database.Core;
+using Domain;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
 using WebApp.Messages;
 
@@ -9,18 +12,20 @@ namespace WebApp.Actors
     public class GetUserActor : ReceiveActor
     {
         public ILoggingAdapter Logger { get; } = Context.GetLogger();
-        public GetUserActor(IUserRepository userRepository)
+        public GetUserActor(IServiceProvider serviceProvider)
         {
-            UserRepository = userRepository;
+            ServiceProvider = serviceProvider;
             Receive<GetUserMessage>(Handle);
         }
 
         private void Handle(GetUserMessage msg)
         {
-            Logger.Debug("GetUserMessage Start");
+            using var s = ServiceProvider.CreateScope();
+            var UserRepository = s.ServiceProvider.GetService<IUserRepository>();
+            
             Sender.Tell(UserRepository.FindAll().ToList());
         }
 
-        public IUserRepository UserRepository { get; }
+        public IServiceProvider ServiceProvider { get; }
     }
 }

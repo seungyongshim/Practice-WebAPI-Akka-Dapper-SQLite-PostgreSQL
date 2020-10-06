@@ -25,14 +25,14 @@ namespace WebApp.Services
 
         public async Task<IEnumerable<User>> GetAsync()
         {
-            var userServiceActor = await ActorSystem.ActorSelection("/user/UserServiceActor").ResolveOne(1.Seconds());
-            return await userServiceActor?.Ask<IEnumerable<User>>(new GetUserMessage(), 1.Seconds());
+            var userServiceActor = await ActorSystem.ActorSelection("/user/UserServiceActor").ResolveOne(5.Seconds());
+            return await userServiceActor?.Ask<IEnumerable<User>>(new GetUserMessage(), 10.Seconds());
         }
 
-        public async Task PutAsync(User user)
+        public async Task<User> PutAsync(User user)
         {
-            var userServiceActor = await ActorSystem.ActorSelection("/user/UserServiceActor").ResolveOne(1.Seconds());
-            await userServiceActor?.Ask<OkMessage>(new InsertUserMessage(user), 1.Seconds());
+            var userServiceActor = await ActorSystem.ActorSelection("/user/UserServiceActor").ResolveOne(5.Seconds());
+            return await userServiceActor?.Ask<User>(new InsertUserMessage(user), 10.Seconds());
         }
     }
 }

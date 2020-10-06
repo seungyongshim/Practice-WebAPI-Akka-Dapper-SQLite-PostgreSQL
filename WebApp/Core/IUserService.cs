@@ -6,7 +6,7 @@ namespace WebApp.Core
 {
     public interface IUserService
     {
-        Task PutAsync(User user);
+        Task<User> PutAsync(User user);
         Task<IEnumerable<User>> GetAsync();
     }
 }

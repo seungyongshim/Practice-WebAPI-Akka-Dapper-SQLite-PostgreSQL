@@ -6,11 +6,13 @@ using Database.Core;
 using Database.SQLite;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using System.Data;
 using System.IO;
 using webapi.Services;
 using WebApp.Actors;
@@ -35,14 +37,9 @@ namespace webapi
             services.AddTransient<UserServiceActor>();
             services.AddTransient<InsertUserActor>();
             services.AddTransient<GetUserActor>();
-
-            services.AddScoped<IUserRepository>(c =>
-            {
-                var r = new UserRepository("Data Source=Application.db;Cache=Shared", c.GetService<ILogger<UserRepository>>());
-                r.Initialize();
-                return r;
-            });
-
+            services.AddScoped<IDbConnection>(s => new SqliteConnection("Data Source=Application.db;Cache=Shared"));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddSingleton(s =>
@@ -57,7 +54,6 @@ namespace webapi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "webapi", Version = "v1" });
             });
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -69,8 +65,6 @@ namespace webapi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "webapi v1"));
             }
 
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
@@ -79,6 +73,12 @@ namespace webapi
             {
                 endpoints.MapControllers();
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                scope.ServiceProvider.GetService<IUserRepository>().Initialize();
+            }
+            
         }
     }
 }
