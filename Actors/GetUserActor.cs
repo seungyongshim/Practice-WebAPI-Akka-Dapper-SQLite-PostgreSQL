@@ -10,6 +10,8 @@ namespace Actors
 {
     public class GetUserActor : ReceiveActor
     {
+        protected GetUserActor() {}
+
         public GetUserActor(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;

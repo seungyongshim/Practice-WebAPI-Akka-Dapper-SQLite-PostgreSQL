@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messages", "Messages\Messag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.SQLite.Tests", "Database.SQLite.Tests\Database.SQLite.Tests.csproj", "{FBAACDBB-871F-426C-A737-E31750B352DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actors.Tests", "Actors.Tests\Actors.Tests.csproj", "{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{FBAACDBB-871F-426C-A737-E31750B352DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBAACDBB-871F-426C-A737-E31750B352DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBAACDBB-871F-426C-A737-E31750B352DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D8C748-DD1F-4494-9C3E-5F24D011A28F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

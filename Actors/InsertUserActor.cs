@@ -9,6 +9,7 @@ namespace Actors
 {
     public class InsertUserActor : ReceiveActor
     {
+        protected InsertUserActor() { }
         public InsertUserActor(IServiceProvider serviceProvider)
         {
             ServiceProvider = serviceProvider;
