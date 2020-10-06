@@ -4,15 +4,13 @@ using Akka.Bootstrap.Docker;
 using Akka.Configuration;
 using Akka.DI.Extensions.DependencyInjection;
 using Database.Core;
-using Database.SQLite;
+using Database.Factories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.Data;
 using System.IO;
 using webapi.Services;
 using WebApp.Core;
@@ -49,20 +47,23 @@ namespace webapi
 
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                scope.ServiceProvider.GetService<IUserRepository>().Initialize();
+                scope.ServiceProvider.GetRequiredService<IUserRepository>().Initialize();
             }
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<DatabaseOptions>(Configuration.GetSection(DatabaseOptions.Database));
             services.AddLogging();
             services.AddHostedService<AkkaHostedService>();
             services.AddTransient<UserServiceActor>();
             services.AddTransient<InsertUserActor>();
             services.AddTransient<GetUserActor>();
-            services.AddScoped<IDbConnection>(s => new SqliteConnection("Data Source=Application.db;Cache=Shared"));
+            services.AddSingleton<DbConnectionFactory>();
+            services.AddSingleton<UserRepositoryFactory>();
+            services.AddScoped(x => x.GetService<DbConnectionFactory>().Make(x));
+            services.AddScoped(x => x.GetService<UserRepositoryFactory>().Make(x));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
             services.AddSingleton(s =>

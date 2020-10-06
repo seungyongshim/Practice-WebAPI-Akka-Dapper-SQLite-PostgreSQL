@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Actors.Tests", "Actors.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.PostgreSQL", "Database.PostgreSQL\Database.PostgreSQL.csproj", "{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database.Factories", "Database.Factories\Database.Factories.csproj", "{D4839499-3661-48AF-ABF8-4884587F3108}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CD7844EB-B3FC-4C62-9808-1BA98C98DD7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4839499-3661-48AF-ABF8-4884587F3108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4839499-3661-48AF-ABF8-4884587F3108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4839499-3661-48AF-ABF8-4884587F3108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4839499-3661-48AF-ABF8-4884587F3108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
