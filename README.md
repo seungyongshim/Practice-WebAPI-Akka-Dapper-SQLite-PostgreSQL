@@ -23,3 +23,6 @@
 
 ## Xunit.DependencyInjection
 - https://github.com/pengweiqhca/Xunit.DependencyInjection
+
+## Strategy-pattern with Microsoft.Extensions.DependencyInjection
+- https://adamstorr.azurewebsites.net/blog/aspnetcore-and-the-strategy-pattern
