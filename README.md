@@ -29,3 +29,7 @@
 
 ## Options pattern in .NET
 - https://docs.microsoft.com/ko-kr/aspnet/core/fundamentals/configuration/options?view=aspnetcore-3.1
+
+
+## ASP.Net Core with Akka.NET
+- https://havret.io/akka-net-asp-net-core
