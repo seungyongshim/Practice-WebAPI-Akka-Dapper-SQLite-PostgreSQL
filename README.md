@@ -42,3 +42,6 @@
 
 ## Layers, onions, hexagons and the folly of application-wide abstractions
 - https://www.ben-morris.com/onions-hexagons-layers-and-folly-of-application-wide-abstractions/
+
+## The generic repository is just a lazy anti-pattern
+- https://www.ben-morris.com/why-the-generic-repository-is-just-a-lazy-anti-pattern/
