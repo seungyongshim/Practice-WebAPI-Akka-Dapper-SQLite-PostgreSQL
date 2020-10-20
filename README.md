@@ -39,3 +39,6 @@
 
 ## Reflecting architecture and domain in code
 - https://herbertograca.com/2019/06/05/reflecting-architecture-and-domain-in-code/
+
+## Layers, onions, hexagons and the folly of application-wide abstractions
+- https://www.ben-morris.com/onions-hexagons-layers-and-folly-of-application-wide-abstractions/
