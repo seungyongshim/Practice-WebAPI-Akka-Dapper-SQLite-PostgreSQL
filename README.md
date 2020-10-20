@@ -33,3 +33,6 @@
 
 ## ASP.Net Core with Akka.NET
 - https://havret.io/akka-net-asp-net-core
+
+## How NOT to use the repository pattern
+- http://blog.marcinchwedczuk.pl/repository-pattern-my-way
