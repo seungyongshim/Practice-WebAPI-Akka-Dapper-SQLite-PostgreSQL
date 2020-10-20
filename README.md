@@ -36,3 +36,6 @@
 
 ## How NOT to use the repository pattern
 - http://blog.marcinchwedczuk.pl/repository-pattern-my-way
+
+## Reflecting architecture and domain in code
+- https://herbertograca.com/2019/06/05/reflecting-architecture-and-domain-in-code/
